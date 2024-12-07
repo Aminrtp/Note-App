@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 
-function AddNewNote() {
+function AddNewNote({ setNotes }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
@@ -14,10 +14,7 @@ function AddNewNote() {
             completed: false,
             createdAt: new Date().toISOString()
         };
-        console.log(newNote);
-        
-
-
+        setNotes((prev) => [...prev,newNote])
     }
 
 
