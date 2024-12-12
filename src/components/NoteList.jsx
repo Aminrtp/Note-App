@@ -1,15 +1,29 @@
-function NoteList({ notes , handleDelete, handleComplete }) {
+function NoteList({ notes, handleDelete, handleComplete ,sortby }) {
+
+    let sortedNotes = notes;
+    if (sortby === "latest") {
+        sortedNotes = [...notes].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    }
+
+    if (sortby === "earliest") {
+        sortedNotes = [...notes].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    }
+
+    if (sortby === "completed") {
+        sortedNotes = [...notes].sort(
+            (a, b) => Number(a.completed) - Number(b.completed))
+    }
+
     return (
         <div className="note-list">
-            {
-            !notes? <div>not</div>:
-            notes.map((note) => (
-                <NoteItem
-                    key={note.id}
-                    note={note}
-                    handleComplete={handleComplete}
-                    handleDelete={handleDelete} />
-            ))}
+            {sortedNotes.map((note) => (
+                        <NoteItem
+                            key={note.id}
+                            note={note}
+                            handleComplete={handleComplete}
+                            handleDelete={handleDelete} />
+                    ))
+            }
         </div>
     );
 }
@@ -22,8 +36,8 @@ function NoteItem({ note, handleDelete, handleComplete }) {
         day: "numeric",
     }
     return (
-       
-        <div className={`note-item ${note.completed? "completed":""}`}>
+
+        <div className={`note-item ${note.completed ? "completed" : ""}`}>
             <div className="note-item__header">
                 <div>
                     <p className="title">{note.title}</p>
@@ -36,9 +50,9 @@ function NoteItem({ note, handleDelete, handleComplete }) {
                         name={note.id}
                         id={note.id}
                         checked={note.completed}
-                        onChange={ handleComplete} 
+                        onChange={handleComplete}
                         value={note.id}
-                        />
+                    />
                 </div>
             </div>
             <div className="note-item__footer">
