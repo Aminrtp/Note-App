@@ -8,6 +8,7 @@ function AddNewNote({ handleAdd }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!title || !description) return null;
+        
         const newNote = {
             title,
             description,
