@@ -11,7 +11,7 @@ function NoteList({ notes, handleDelete, handleComplete ,sortby }) {
 
     if (sortby === "completed") {
         sortedNotes = [...notes].sort(
-            (a, b) => Number(a.completed) - Number(b.completed))
+            (a, b) => Number(b.completed) - Number(a.completed))
     }
 
     return (
